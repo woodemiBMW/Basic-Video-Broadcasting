@@ -80,8 +80,19 @@ exports.getEntry = function() {
   const ROUTES_PATH = path.resolve(__dirname, './src/pages');
   const routesArray = fs.readdirSync(ROUTES_PATH);
   let result = {};
+  console.log("routesArray:" + routesArray);
   for (let item of routesArray) {
-    result[item] = `@/pages/${item}/${item}.js`;
+    result[item] = [];
+    let pagesArray = fs.readdirSync(ROUTES_PATH+"/"+item);
+    console.log("pagesArray:" + pagesArray);
+
+    // result[item] = `@/pages/${item}/${item}.js`;
+    for (let index=0; index<pagesArray.length; index++) {
+      if(pagesArray[index].endsWith(".js")){
+        result[item].push( `@/pages/${item}/${pagesArray[index]}`);
+      }
+    }
+    console.log("result:" + result[item]);
   }
   return result;
 };

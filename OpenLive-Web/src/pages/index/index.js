@@ -157,6 +157,7 @@ const subscribeMouseEvent = () => {
       transcode: $('input[name="transcode"]:checked').val(),
       attendeeMode: $('input[name="attendee"]:checked').val(),
       videoProfile: $('#videoProfile').val(),
+      userid: $('#userid').val().trim()||new Date().getMilliseconds(),
       channel: $('#channel')
         .val()
         .trim(),

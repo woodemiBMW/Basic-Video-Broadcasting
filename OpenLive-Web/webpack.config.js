@@ -6,6 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const {resolve} = path;
 
 const utils = require('./webpack.utils');
 
@@ -83,7 +84,8 @@ module.exports = {
   resolve: {
     alias: {
       '@': path.join(__dirname, './src'),
-      'jquery': 'jquery/dist/jquery.slim.js'
+      'jquery': 'jquery/dist/jquery.slim.js',
+      rtm: resolve(__dirname, "./src/assets/rtm.min.js")
     },
     extensions: ['*', '.js', '.json']
   },
@@ -95,6 +97,11 @@ module.exports = {
         ignore: ['.*']
       }
     ]),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      AgoraRTM: "rtm"
+    }),
     new webpack.DefinePlugin({
       'process.env.AGORA_PROFILE': JSON.stringify(process.env.AGORA_PROFILE)
     }),
